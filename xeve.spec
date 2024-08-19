@@ -12,7 +12,18 @@ BuildRequires:  gcc-c++
 #BuildRequires:  git
 
 %description
-eXtra-fast Essential Video Encoder, MPEG-5 EVC (Essential Video Coding).
+The eXtra-fast Essential Video Encoder (XEVE) is an opensource and fast MPEG-5
+EVC encoder.
+
+MPEG-5 Essential Video Coding (EVC) is a video compression standard of ISO/IEC
+Moving Picture Experts Group (MPEG). The main goal of the EVC is to provide a
+significantly improved compression capability over existing video coding
+standards with timely publication of terms. The EVC defines two profiles,
+including "Baseline Profile" and "Main Profile". The "Baseline profile" contains
+only technologies that are older than 20 years or otherwise freely available for
+use in the standard. In addition, the "Main profile" adds a small number of
+additional tools, each of which can be either cleanly disabled or switched to
+the corresponding baseline tool on an individual basis.
 
 %package        libs
 Summary:        MPEG-5 EVC encoder %{name} libraries
