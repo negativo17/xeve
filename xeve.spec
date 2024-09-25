@@ -1,6 +1,6 @@
 Name:           xeve
-Version:        0.5.0
-Release:        1%{?dist}
+Version:        0.5.1
+Release:        0%{?dist}
 Summary:        eXtra-fast Essential Video Encoder, MPEG-5 EVC (Essential Video Coding)
 License:        BSD-3-Clause
 URL:            https://github.com/mpeg5/xeve
@@ -8,7 +8,7 @@ URL:            https://github.com/mpeg5/xeve
 Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 
 BuildRequires:  cmake
-BuildRequires:  gcc-c++
+BuildRequires:  gcc
 #BuildRequires:  git
 
 %description
@@ -45,7 +45,11 @@ developing applications that use %{name}.
 echo "v%{version}" > version.txt
 
 %build
-%cmake
+%cmake \
+%ifarch aarch64
+    -DARM=TRUE
+%endif
+
 %cmake_build
 
 %install
@@ -69,5 +73,8 @@ rm -fr %{buildroot}%{_libdir}/%{name}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Wed Sep 25 2024 Simone Caronni <negativo17@gmail.com> - 0.5.1-1
+- Update to 0.5.1.
+
 * Mon Aug 19 2024 Simone Caronni <negativo17@gmail.com> - 0.5.0-1
 - First build.
