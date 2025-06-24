@@ -1,15 +1,19 @@
 Name:           xeve
+Epoch:          1
 Version:        0.5.1
-Release:        0%{?dist}
+Release:        1%{?dist}
 Summary:        eXtra-fast Essential Video Encoder, MPEG-5 EVC (Essential Video Coding)
 License:        BSD-3-Clause
 URL:            https://github.com/mpeg5/xeve
 
 Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
+Patch0:         xeve-fix-build-on-non-x86.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
-#BuildRequires:  git
+%ifarch aarch64
+BuildRequires:  sse2neon-devel
+%endif
 
 %description
 The eXtra-fast Essential Video Encoder (XEVE) is an opensource and fast MPEG-5
@@ -34,7 +38,7 @@ applications that use %{name}. This package contains the shared libraries.
 
 %package        devel
 Summary:        Development files for %{name}
-Requires:       %{name}-libs%{?_isa} = %{version}-%{release}
+Requires:       %{name}-libs%{?_isa} = %{epoch}:%{version}-%{release}
 
 %description    devel
 The %{name}-devel package contains libraries and header files for
@@ -43,13 +47,10 @@ developing applications that use %{name}.
 %prep
 %autosetup -p1
 echo "v%{version}" > version.txt
+rm src_base/neon/sse2neon.h
 
 %build
-%cmake \
-%ifarch aarch64
-    -DARM=TRUE
-%endif
-
+%cmake -DSET_PROF=MAIN
 %cmake_build
 
 %install
@@ -73,6 +74,9 @@ rm -fr %{buildroot}%{_libdir}/%{name}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Mon Sep 08 2025 Simone Caronni <negativo17@gmail.com> - 1:0.5.1-1
+- Fix build of MAIN profile for aarch64.
+
 * Wed Sep 25 2024 Simone Caronni <negativo17@gmail.com> - 0.5.1-1
 - Update to 0.5.1.
 
