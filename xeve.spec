@@ -8,6 +8,9 @@ URL:            https://github.com/mpeg5/xeve
 
 Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
 Patch0:         xeve-fix-build-on-non-x86.patch
+# https://github.com/mpeg5/xeve/commit/bc45faa2e8d22bf33b0d15c025662f2a8de61fbc
+# But also for src_main:
+Patch1:         xeve-link-libm.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
