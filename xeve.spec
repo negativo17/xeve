@@ -1,7 +1,7 @@
 Name:           xeve
 Epoch:          1
 Version:        0.5.1
-Release:        1%{?dist}
+Release:        2%{?dist}
 Summary:        eXtra-fast Essential Video Encoder, MPEG-5 EVC (Essential Video Coding)
 License:        BSD-3-Clause
 URL:            https://github.com/mpeg5/xeve
@@ -11,6 +11,7 @@ Patch0:         xeve-fix-build-on-non-x86.patch
 # https://github.com/mpeg5/xeve/commit/bc45faa2e8d22bf33b0d15c025662f2a8de61fbc
 # But also for src_main:
 Patch1:         xeve-link-libm.patch
+Patch2:         xeve-fix-build-i386.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
@@ -77,6 +78,9 @@ rm -fr %{buildroot}%{_libdir}/%{name}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Nov 04 2025 Simone Caronni <negativo17@gmail.com> - 1:0.5.1-2
+- Fix i386 build.
+
 * Mon Sep 08 2025 Simone Caronni <negativo17@gmail.com> - 1:0.5.1-1
 - Fix build of MAIN profile for aarch64.
 
