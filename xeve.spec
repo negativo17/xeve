@@ -1,23 +1,16 @@
 Name:           xeve
 Epoch:          1
-Version:        0.5.1
+Version:        0.7.0
 Release:        2%{?dist}
 Summary:        eXtra-fast Essential Video Encoder, MPEG-5 EVC (Essential Video Coding)
 License:        BSD-3-Clause
 URL:            https://github.com/mpeg5/xeve
 
 Source0:        %{url}/archive/v%{version}.tar.gz#/%{name}-%{version}.tar.gz
-Patch0:         xeve-fix-build-on-non-x86.patch
-# https://github.com/mpeg5/xeve/commit/bc45faa2e8d22bf33b0d15c025662f2a8de61fbc
-# But also for src_main:
-Patch1:         xeve-link-libm.patch
-Patch2:         xeve-fix-build-i386.patch
+Patch0:         xeve-fix-build-i386.patch
 
 BuildRequires:  cmake
 BuildRequires:  gcc
-%ifarch aarch64
-BuildRequires:  sse2neon-devel
-%endif
 
 %description
 The eXtra-fast Essential Video Encoder (XEVE) is an opensource and fast MPEG-5
@@ -51,7 +44,6 @@ developing applications that use %{name}.
 %prep
 %autosetup -p1
 echo "v%{version}" > version.txt
-rm src_base/neon/sse2neon.h
 
 %build
 %cmake -DSET_PROF=MAIN
@@ -70,7 +62,7 @@ rm -fr %{buildroot}%{_libdir}/%{name}
 %license COPYING
 %doc README.md
 %{_libdir}/lib%{name}.so.0
-%{_libdir}/lib%{name}.so.0.5
+%{_libdir}/lib%{name}.so.0.7
 
 %files devel
 %{_includedir}/%{name}/
@@ -78,6 +70,12 @@ rm -fr %{buildroot}%{_libdir}/%{name}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Sun Aug 09 2026 Simone Caronni <negativo17@gmail.com> - 1:0.7.0-2
+- Fix build on i386.
+
+* Sun Aug 09 2026 Simone Caronni <negativo17@gmail.com> - 1:0.7.0-1
+- Update to 0.7.0.
+
 * Tue Nov 04 2025 Simone Caronni <negativo17@gmail.com> - 1:0.5.1-2
 - Fix i386 build.
 
