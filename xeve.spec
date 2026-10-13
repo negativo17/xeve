@@ -1,7 +1,7 @@
 Name:           xeve
 Epoch:          1
-Version:        0.7.0
-Release:        2%{?dist}
+Version:        0.7.1
+Release:        1%{?dist}
 Summary:        eXtra-fast Essential Video Encoder, MPEG-5 EVC (Essential Video Coding)
 License:        BSD-3-Clause
 URL:            https://github.com/mpeg5/xeve
@@ -70,6 +70,9 @@ rm -fr %{buildroot}%{_libdir}/%{name}
 %{_libdir}/pkgconfig/%{name}.pc
 
 %changelog
+* Tue Oct 13 2026 Simone Caronni <negativo17@gmail.com> - 1:0.7.1-1
+- Update to 0.7.1.
+
 * Sun Aug 09 2026 Simone Caronni <negativo17@gmail.com> - 1:0.7.0-2
 - Fix build on i386.
 
